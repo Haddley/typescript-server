@@ -4,14 +4,19 @@ import path from 'path';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Determine public directory path based on environment
+const publicPath = process.env.NODE_ENV === 'production' 
+  ? path.join(__dirname, 'public')  // Azure App Service structure
+  : path.join(__dirname, '../public'); // Local development structure
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(publicPath));
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 app.get('/api/hello', (req: Request, res: Response) => {

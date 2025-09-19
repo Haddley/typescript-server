@@ -1,0 +1,8 @@
+name: typescript-server
+metadata:
+  template: typescript-server@0.0.1-beta
+services:
+  web:
+    project: .
+    language: js
+    host: appservice
